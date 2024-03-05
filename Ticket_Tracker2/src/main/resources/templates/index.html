@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Ticket Tracker Application</title>
+
+<style type="text/css">
+body {
+	margin: 0;
+	font-family: Arial;
+}
+
+.container {
+	background-color: blue;
+	color: white;
+	overflow: hidden;
+	height: 50px;
+}
+
+.container a {
+	color: #f2f2f2;
+	text-align: center;
+	float: inherit;
+	padding: 12px 10px;
+	text-decoration: none;
+}
+
+table {
+	border-style: solid;
+	border-collapse: collapse;
+	margin-left: 80px; 
+}
+
+.row {
+	background-color: black;
+	text-align: left;
+}
+
+th {
+	color: white;
+}
+
+thead {
+	text-align: center;
+	color: black;
+	padding: 10px;
+}
+
+.edit {
+	background-color: blue;
+	border: 1px outset buttonhighlight;
+	color: white;
+	border-radius: 3px;
+	text-decoration: none;
+	padding: 2px 6px;
+}
+
+.ser {
+	background-color: blue;
+	border: 1px outset buttonhighlight;
+	color: white;
+	text-decoration: none;
+}
+
+.delete {
+	background-color: red;
+	border: 1px outset buttonhighlight;
+	color: white;
+	border-radius: 3px;
+	text-decoration: none;
+	padding: 2px 6px;
+}
+
+.view {
+	background-color: aqua;
+	border: 1px outset buttonhighlight;
+	border-radius: 3px;
+	text-decoration: none;
+	padding: 2px 6px;
+}
+
+.list {
+	text-align: left;
+	margin-left: 80px; 
+}
+
+.active {
+	background-color: blue;
+}
+
+.new {
+	background-color: blue;
+}
+
+
+form input {
+	margin-left: 80px;
+}
+
+
+col.col1 {
+	width: 100px; 
+}
+
+col.col2 {
+	width: 150px; 
+}
+
+col.col3 {
+	width: 300px; 
+}
+
+col.col4 {
+	width: 200px;
+}
+
+col.col5 {
+	width: 150px; 
+}
+</style>
+</head>
+
+<body>
+	<div class="container">
+		<br> <span>&nbsp; Ticket Tracker Application</span> <a
+			th:href="@{/admin/tickets}">Tickets</a><a
+			th:href="@{/admin/newTicket}">NewTickets</a>
+	</div>
+	<div>
+		<div align="left">
+			<h1 class="list">List Of Tickets</h1>
+			<form action="/admin/search" method="get">
+				<input type="search" name="title" /> <input type="submit"
+					class="ser" value="Search" />
+			</form>
+
+
+
+
+			<br>
+			<table border="1">
+				<colgroup>
+					<col class="col1" />
+					<col class="col2" />
+					<col class="col3" />
+					<col class="col4" />
+					<col class="col5" />
+				</colgroup>
+				<thead>
+					<tr class="row">
+						<th>#</th>
+						<th>Ticket Title</th>
+						<th>Ticket Short Description</th>
+						<th>Ticket Created On</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="ticket:${ticketList}">
+						<td th:text="${ticket.slNo}"></td>
+						<td th:text="${ticket.ticketTitle}"></td>
+						<td th:text="${ticket.description}"></td>
+						<td th:text="${ticket.createdOn}"></td>
+						<td><a type="submit"
+							th:href="@{/admin/editTicket/{slNo}(slNo=${ticket.slNo})}">
+								<button class="edit">Edit</button>
+						</a> <a type="submit"
+							th:href="@{/admin/{slNo}/delete(slNo=${ticket.slNo})}">
+								<button class="delete">Delete</button>
+						</a> <a type="submit"
+							th:href="@{/admin/{slNo}/view(slNo=${ticket.slNo})}">
+								<button class="view">View</button>
+						</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>
